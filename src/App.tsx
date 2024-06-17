@@ -1,39 +1,26 @@
-import { useEffect, useState } from "react";
-import "./App.css";
-import TodoListForm from "./components/TodoListForm";
-import { Todo } from "./utils";
-import TodoList from "./components/TodoList";
+import { Provider } from "react-redux";
+
+import { store } from "./store/redux/reduxStore.ts";
+import AppHeader from "./components/App/Header/index.tsx";
+import AppFooter from "./components/App/Footer/index.tsx";
+import TodoApp from "./components/todo-apps/TodoApp.tsx";
+import Switcher from "./components/Switcher/index.tsx";
+import SwitcherProvider from "./context/SwitcherContext.tsx";
+
+// import "./App.css";
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  const addListItem = (item: Todo) => {
-    // Get item from input
-    const newItem = item;
-    const initialItems = localStorage.getItem("todos") || "[]";
-    const oldItems = JSON.parse(initialItems);
-    oldItems.push(newItem);
-
-    // Save to LocalStorage
-    localStorage.setItem("todos", JSON.stringify(oldItems));
-
-    // Update state
-    setTodos(oldItems);
-  };
-
-  useEffect(() => {
-    // Get Todos from LocalStorage first
-    const todos = localStorage.getItem("todos");
-    if (todos) {
-      setTodos(JSON.parse(todos));
-    }
-  }, []);
-
   return (
-    <>
-      <TodoListForm onAddItem={addListItem} />
-      <TodoList setTodos={setTodos} todos={todos} />
-    </>
+    <div className="container mx-auto my-5">
+      <AppHeader />
+      <SwitcherProvider>
+        <Switcher />
+        <Provider store={store}>
+          <TodoApp />
+        </Provider>
+      </SwitcherProvider>
+      <AppFooter />
+    </div>
   );
 }
 
