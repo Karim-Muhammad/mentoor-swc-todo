@@ -3,21 +3,28 @@ import useTodosState from "../../../hooks/useTodosState";
 import { Todo } from "../../../types";
 
 function TodoForm() {
-  const { todo, setTodo } = useState<Todo>();
+  const [todo, setTodo] = useState<Todo>({
+    id: 0,
+    title: "",
+    isCompleted: false,
+    created_at: "",
+    updated_at: "",
+  });
+
   const { addTodo } = useTodosState();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTodo({
-      ...todo,
+    setTodo((prev: Todo) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addTodo({
-      id: Math.floor(Math.random() * 1000),
       ...todo,
+      id: Math.floor(Math.random() * 1000),
     });
   };
 

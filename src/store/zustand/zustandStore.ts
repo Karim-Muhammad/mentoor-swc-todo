@@ -1,7 +1,7 @@
 import create from "zustand";
 import { Todo } from "../../types";
 
-interface ZustandStore {
+export interface ZustandStore {
   todos: Todo[];
   addTodo: (todo: Todo) => void;
   toggleTodo: (id: number) => void;

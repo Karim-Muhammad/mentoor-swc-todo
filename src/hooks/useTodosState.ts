@@ -15,7 +15,7 @@ const useTodosState = () => {
     case "zustand":
       return zustandState;
     default:
-      return Error("Unknown state management library selected.");
+      return reduxState;
   }
 };
 

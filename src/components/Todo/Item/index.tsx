@@ -25,7 +25,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
             <span className="text-lg font-medium text-white">{todo.title}</span>
           </label>
         </div>
-        <p className="text-slate-500 ml-7">{todo.description}</p>
+        {/* <p className="text-slate-500 ml-7">{todo.description}</p> */}
       </li>
     </>
   );

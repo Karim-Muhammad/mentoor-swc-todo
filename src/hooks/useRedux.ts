@@ -9,7 +9,15 @@ import {
 import { Todo } from "../types";
 import { AppDispatch, RootState } from "../store/redux/reduxStore";
 
-const useRedux = () => {
+interface ReduxState {
+  todos: Todo[];
+  addTodo: (todo: Todo) => void;
+  updateTodo: (id: number, todo: Todo) => void;
+  deleteTodo: (id: number) => void;
+  toggleTodo: (id: number) => void;
+}
+
+const useRedux = (): ReduxState => {
   const todos = useSelector((state: RootState) => state.todos as Todo[]);
   const dispatch = useDispatch<AppDispatch>();
 

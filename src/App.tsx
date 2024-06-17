@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/redux/reduxStore.ts";
 import AppHeader from "./components/App/Header/index.tsx";
 import AppFooter from "./components/App/Footer/index.tsx";
-import TodoApp from "./components/todo-apps/TodoApp.tsx";
+import TodoApp from "./components/Todo/index.tsx";
 import Switcher from "./components/Switcher/index.tsx";
 import SwitcherProvider from "./context/SwitcherContext.tsx";
 

@@ -1,8 +1,9 @@
-import type { EmojiStyle } from "emoji-picker-react";
+// import type { EmojiStyle } from "emoji-picker-react";
 
 export interface Todo {
   id: number;
   // avatar: EmojiStyle;
+
   title: string;
   // description: string;
 
