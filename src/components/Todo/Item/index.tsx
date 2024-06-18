@@ -1,3 +1,4 @@
+import useTodosState from "../../../hooks/useTodosState";
 import { Todo } from "../../../types";
 
 export type TodoItemProps = {
@@ -5,6 +6,9 @@ export type TodoItemProps = {
 };
 
 export default function TodoItem({ todo }: TodoItemProps) {
+  const { toggleTodo } = useTodosState();
+  console.log(todo.id, toggleTodo);
+
   return (
     <>
       <li className={`py-4`} id={`${todo.id}`}>
@@ -15,7 +19,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
             type="checkbox"
             checked={todo.isCompleted}
             className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
-            onChange={() => {}}
+            onChange={() => toggleTodo(todo.id)}
           />
           <label
             htmlFor={`todo-${todo.id}`}

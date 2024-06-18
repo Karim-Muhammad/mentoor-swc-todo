@@ -34,12 +34,11 @@ const todoSlicer = createSlice({
     },
 
     toggleTodo: (state, action: PayloadAction<number>) => {
-      state.map((todo: Todo) => ({
-        ...todo,
-        isCompleted:
-          todo.id === action.payload ? !todo.isCompleted : todo.isCompleted,
-        updated_at: new Date().toISOString(),
-      }));
+      state.forEach((todo: Todo) => {
+        if (todo.id === action.payload) {
+          todo.isCompleted = !todo.isCompleted;
+        }
+      });
     },
 
     deleteTodo: (state, action: PayloadAction<number>) => {

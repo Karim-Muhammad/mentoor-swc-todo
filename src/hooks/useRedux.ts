@@ -27,7 +27,7 @@ const useRedux = (): ReduxState => {
   const updateTodo = (id: number, todo: Todo) =>
     dispatch(updateTodoAction({ id, todo }));
   const deleteTodo = (id: number) => dispatch(deleteTodoAction(id));
-  const toggleTodo = (id: number) => dispatch(toggleTodoAction(id));
+  const toggleTodo = (id: number) => dispatch(toggleTodoAction(+id));
 
   useEffect(() => {
     if (!localStorage.getItem("redux")) return;
