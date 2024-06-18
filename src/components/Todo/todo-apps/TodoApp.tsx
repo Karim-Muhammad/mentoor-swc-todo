@@ -5,10 +5,10 @@ function TodoApp() {
   return (
     <div className="h-[80vh]">
       <div className="container flex gap-4">
-        <section className="left basis-1/3">
+        <section className="left basis-full">
           <FormWrapper />
         </section>
-        <section className="right basis-2/3">
+        <section className="right basis-full">
           <TodoListItems />
         </section>
       </div>

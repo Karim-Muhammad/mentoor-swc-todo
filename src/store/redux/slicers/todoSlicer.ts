@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import type { Middleware, PayloadAction } from "@reduxjs/toolkit";
 import type { Todo } from "../../../types";
 
 const initialState: Todo[] = [
@@ -13,41 +13,6 @@ const initialState: Todo[] = [
   {
     id: 2,
     title: "Redux Two",
-    isCompleted: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 3,
-    title: "Redux Three",
-    isCompleted: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 4,
-    title: "Redux Four",
-    isCompleted: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 5,
-    title: "Redux Five",
-    isCompleted: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 6,
-    title: "Redux Six",
-    isCompleted: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 7,
-    title: "Redux Seven",
     isCompleted: false,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
@@ -93,10 +58,23 @@ const todoSlicer = createSlice({
         return todo;
       });
     },
+
+    setTodos: (state, action: PayloadAction<Todo[]>) => {
+      state.splice(0, state.length, ...action.payload);
+    },
   },
 });
 
-export const { addTodo, toggleTodo, deleteTodo, updateTodo } =
+// Middlewares - LocalStorage
+export const SyncLocalStorage: Middleware = (store) => (next) => (action) => {
+  const result = next(action);
+  console.log("[Sync...] ", store.getState().todos);
+  localStorage.setItem("redux", JSON.stringify(store.getState().todos));
+
+  return result;
+};
+
+export const { addTodo, toggleTodo, deleteTodo, updateTodo, setTodos } =
   todoSlicer.actions;
 
 export default todoSlicer.reducer;

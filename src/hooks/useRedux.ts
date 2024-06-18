@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addTodo as addTodoAction,
   deleteTodo as deleteTodoAction,
   updateTodo as updateTodoAction,
   toggleTodo as toggleTodoAction,
+  setTodos,
 } from "../store/redux/slicers/todoSlicer";
 
 import { Todo } from "../types";
@@ -26,6 +28,16 @@ const useRedux = (): ReduxState => {
     dispatch(updateTodoAction({ id, todo }));
   const deleteTodo = (id: number) => dispatch(deleteTodoAction(id));
   const toggleTodo = (id: number) => dispatch(toggleTodoAction(id));
+
+  useEffect(() => {
+    if (!localStorage.getItem("redux")) return;
+    const storedData = JSON.parse(localStorage.getItem("redux") as string);
+    if (Array.isArray(storedData)) {
+      dispatch(setTodos(storedData as Todo[]));
+    }
+
+    console.log("[useRedux] ", storedData);
+  }, []);
 
   return { todos, addTodo, updateTodo, deleteTodo, toggleTodo };
 };

@@ -7,44 +7,38 @@ export interface ZustandStore {
   toggleTodo: (id: number) => void;
   deleteTodo: (id: number) => void;
   updateTodo: (id: number, todo: Todo) => void;
+  setTodos: (todos: Todo[]) => void;
 }
 
 const useZustandStore = create<ZustandStore>((set, get) => ({
   todos: [
     {
       id: 1,
-      title: "Learn React",
-      isCompleted: false,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    },
-    {
-      id: 2,
       title: "Learn TypeScript",
       isCompleted: false,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     },
     {
-      id: 3,
-      title: "Learn Redux",
-      isCompleted: false,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    },
-    {
-      id: 4,
+      id: 2,
       title: "Learn Zustand",
       isCompleted: false,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     },
   ],
-  addTodo: (todo: Todo) => set((state) => ({ todos: [...state.todos, todo] })),
+  addTodo: (todo: Todo) =>
+    set((state) => {
+      const newState = [...state.todos, todo];
+      localStorage.setItem("zustand", JSON.stringify(newState));
+      return {
+        ...state,
+        todos: newState,
+      };
+    }),
   toggleTodo: (id: number) =>
-    set((state) => ({
-      ...state,
-      todos: state.todos.map((todo: Todo) => {
+    set((state) => {
+      const newState = state.todos.map((todo: Todo) => {
         if (todo.id === id) {
           return {
             ...todo,
@@ -54,16 +48,29 @@ const useZustandStore = create<ZustandStore>((set, get) => ({
         }
 
         return todo;
-      }),
-    })),
+      });
+
+      localStorage.setItem("zustand", JSON.stringify(newState));
+
+      return {
+        ...state,
+        todos: newState,
+      };
+    }),
   deleteTodo: (id: number) =>
-    set((state) => ({
-      ...state,
-      todos: state.todos.filter((todo: Todo) => todo.id !== id),
-    })),
+    set((state) => {
+      const newState = state.todos.filter((todo: Todo) => todo.id !== id);
+
+      localStorage.setItem("zustand", JSON.stringify(newState));
+
+      return {
+        ...state,
+        todos: newState,
+      };
+    }),
   updateTodo: (id: number, updatedTodo: Todo) =>
-    set((state) => ({
-      todos: state.todos.map((todo: Todo) => {
+    set((state) => {
+      const newState = state.todos.map((todo: Todo) => {
         if (todo.id === id) {
           return {
             ...todo,
@@ -73,9 +80,21 @@ const useZustandStore = create<ZustandStore>((set, get) => ({
         }
 
         return todo;
-      }),
-    })),
+      });
+
+      localStorage.setItem("zustand", JSON.stringify(newState));
+
+      return {
+        ...state,
+        todos: newState,
+      };
+    }),
   getTodos: () => get().todos,
+  setTodos: (todos: Todo[]) =>
+    set((state) => {
+      localStorage.setItem("zustand", JSON.stringify(todos));
+      return { ...state, todos: todos };
+    }),
 }));
 
 export default useZustandStore;

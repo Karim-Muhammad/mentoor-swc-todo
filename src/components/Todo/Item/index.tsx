@@ -15,6 +15,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
             type="checkbox"
             checked={todo.isCompleted}
             className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
+            onChange={() => {}}
           />
           <label
             htmlFor={`todo-${todo.id}`}
