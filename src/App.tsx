@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import {
   getCurrentLocaleCode,
@@ -16,9 +16,8 @@ import SwitcherProvider from "./context/SwitcherContext.tsx";
 // import "./App.css";
 
 function App() {
-  const [language, setLanguage] = useState("en");
-  const currentLanguage = getCurrentLocaleCode();
-  const direction = currentLanguage === "ar" ? "rtl" : "ltr";
+  const [language, setLanguage] = useState<string>(getCurrentLocaleCode());
+  const direction = language === "ar" ? "rtl" : "ltr";
 
   setCurrentLocaleCode(language);
 

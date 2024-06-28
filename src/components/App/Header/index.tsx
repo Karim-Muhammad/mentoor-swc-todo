@@ -20,6 +20,7 @@ function AppHeader(props: AppHeaderProps) {
       });
     });
   };
+
   return (
     <div className="my-5 flex justify-between items-center">
       <h1 className="text-3xl font-bold">{trans("headerText")}</h1>
