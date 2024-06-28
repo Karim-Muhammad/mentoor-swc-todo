@@ -13,7 +13,7 @@ export default function FormWrapper() {
 
   return (
     <>
-      <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-16">
+      <div className="p-5 mx-auto bg-slate shadow-lg shadow-black rounded-lg overflow-hidden mt-16">
         <TodoHeader />
         <TodoForm />
       </div>

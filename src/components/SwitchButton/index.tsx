@@ -15,7 +15,7 @@ function SwitchButton({ lib, switchTo, color }: SwitchButtonProps) {
     purple: "bg-purple-400 hover:bg-purple-700",
     orange: "bg-orange-400 hover:bg-orange-700",
     green: "bg-green-400 hover:bg-green-700",
-    slate: "bg-slate-400 hover:bg-slate-700",
+    slate: "bg-slate-700 hover:bg-slate-600",
   };
   const bgColor: string = bgColors[color as ColorType];
 

@@ -42,20 +42,21 @@ const todoSlicer = createSlice({
     },
 
     deleteTodo: (state, action: PayloadAction<number>) => {
-      state.filter((todo: Todo) => todo.id !== action.payload);
+      const index = state.findIndex((todo: Todo) => todo.id === action.payload);
+      if (index !== -1) state.splice(index, 1); // This mutates the state directly
     },
 
     updateTodo: (state, action: PayloadAction<{ id: number; todo: Todo }>) => {
-      state.map((todo: Todo) => {
-        if (todo.id === action.payload.id) {
-          return {
-            ...todo,
-            ...action.payload.todo,
-            updated_at: new Date().toISOString(),
-          };
-        }
-        return todo;
-      });
+      const index = state.findIndex(
+        (todo: Todo) => todo.id === action.payload.id
+      );
+      if (index !== -1) {
+        state[index] = {
+          ...state[index],
+          ...action.payload.todo,
+          updated_at: new Date().toISOString(),
+        };
+      }
     },
 
     setTodos: (state, action: PayloadAction<Todo[]>) => {

@@ -1,5 +1,11 @@
+import { useState } from "react";
 import { Provider } from "react-redux";
+import {
+  getCurrentLocaleCode,
+  setCurrentLocaleCode,
+} from "@mongez/localization";
 
+import "./config/localization.ts";
 import { store } from "./store/redux/reduxStore.ts";
 import AppHeader from "./components/App/Header/index.tsx";
 import AppFooter from "./components/App/Footer/index.tsx";
@@ -10,9 +16,15 @@ import SwitcherProvider from "./context/SwitcherContext.tsx";
 // import "./App.css";
 
 function App() {
+  const [language, setLanguage] = useState("en");
+  const currentLanguage = getCurrentLocaleCode();
+  const direction = currentLanguage === "ar" ? "rtl" : "ltr";
+
+  setCurrentLocaleCode(language);
+
   return (
-    <div className="container mx-auto my-5">
-      <AppHeader />
+    <div dir={direction} className="container mx-auto my-5">
+      <AppHeader language={language} changeLanguage={setLanguage} />
       <SwitcherProvider>
         <Switcher />
         <Provider store={store}>

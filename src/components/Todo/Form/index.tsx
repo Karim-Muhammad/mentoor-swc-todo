@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useTodosState from "../../../hooks/useTodosState";
 import { Todo } from "../../../types";
+import { trans } from "@mongez/localization";
 
 function TodoForm() {
   const [todo, setTodo] = useState<Todo>({
@@ -22,6 +23,9 @@ function TodoForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!todo.title.trim()) return;
+
     addTodo({
       ...todo,
       id: Math.floor(Math.random() * 1000),
@@ -29,20 +33,20 @@ function TodoForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-sm mx-auto px-4 py-2">
-      <div className="flex items-center border-b-2 border-teal-500 py-2">
+    <form onSubmit={handleSubmit} className="py-3 w-full mx-auto">
+      <div className="flex items-center border-b-2 border-[#16D6FA] py-2">
         <input
-          className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+          className="appearance-none bg-transparent border-none w-full text-white-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           type="text"
           name="title"
-          placeholder="Add a task"
+          placeholder={trans("addTodoPlaceholder")}
           onChange={handleChange}
         />
         <button
-          className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+          className="flex-shrink-0 bg-[#16d8fade] hover:bg-[#16D6FA] text-sm border-4 text-white py-1 rounded border-none"
           type="submit"
         >
-          Add
+          {trans("addTodo")}
         </button>
       </div>
     </form>

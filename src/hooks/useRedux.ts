@@ -36,7 +36,7 @@ const useRedux = (): ReduxState => {
       dispatch(setTodos(storedData as Todo[]));
     }
 
-    console.log("[useRedux] ", storedData);
+    console.log("[useEffect in useRedux] ", storedData);
   }, []);
 
   return { todos, addTodo, updateTodo, deleteTodo, toggleTodo };
