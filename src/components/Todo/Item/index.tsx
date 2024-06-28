@@ -27,7 +27,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
     }
   };
 
-  const handleDelete = (id: number) => (e: React.MouseEvent<SVGElement>) => {
+  const handleDelete = (id: number) => () => {
     deleteTodo(id);
   };
 
@@ -57,7 +57,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
             {!isEdit && (
               <p
                 className="text-slate-800"
-                onDoubleClick={(e) => {
+                onDoubleClick={() => {
                   setIsEdit(true);
                   setTimeout(() => {
                     inputRef.current?.focus();
