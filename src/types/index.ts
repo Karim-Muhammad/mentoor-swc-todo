@@ -17,3 +17,22 @@ export interface Todo {
   // owner: string;
   // assignee: string;
 }
+
+export interface TodoActions {
+  addTodo: (todo: Todo) => void;
+
+  toggleTodo: (id: number) => void;
+
+  deleteTodo: (id: number) => void;
+
+  updateTodo: (id: number, todo: Todo) => void;
+
+  setTodos?: (todos: Todo[]) => void;
+
+  // ========================
+  clearTodos: () => void;
+
+  filterTodos: (filter: string) => void;
+
+  clearCompleted: () => void;
+}

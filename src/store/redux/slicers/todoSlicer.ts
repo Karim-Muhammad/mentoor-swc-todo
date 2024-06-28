@@ -62,6 +62,27 @@ const todoSlicer = createSlice({
     setTodos: (state, action: PayloadAction<Todo[]>) => {
       state.splice(0, state.length, ...action.payload);
     },
+
+    clearTodos: (state) => {
+      state.splice(0, state.length);
+    },
+
+    filterTodos: (state, action: PayloadAction<string>) => {
+      state.filter((todo: Todo) => {
+        if (action.payload === "completed") {
+          return todo.isCompleted;
+        } else if (action.payload === "active") {
+          return !todo.isCompleted;
+        } else {
+          return todo;
+        }
+      });
+    },
+
+    // Extra Reducer
+    clearCompleted: (state) => {
+      state.filter((todo: Todo) => !todo.isCompleted);
+    },
   },
 });
 
