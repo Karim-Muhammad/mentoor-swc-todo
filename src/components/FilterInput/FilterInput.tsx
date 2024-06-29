@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import useTodosState from "../../hooks/useTodosState";
+import React from "react";
+
+// import { useEffect, useState } from "react";
+// import useTodosState from "../../hooks/useTodosState";
 
 const FilterInput = () => {
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const { setFilteredTodos } = useTodosState();
+  const [searchTerm, setSearchTerm] = React.useState<string>("");
+  // const { setFilteredTodos } = useTodosState();
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -11,11 +13,11 @@ const FilterInput = () => {
 
   console.log("searchTerm", searchTerm);
 
-  useEffect(() => {
-    setFilteredTodos((todos) =>
-      todos.filter((todo) => todo.title.includes(searchTerm))
-    );
-  }, [searchTerm]);
+  // useEffect(() => {
+  //   setFilteredTodos((todos) =>
+  //     todos.filter((todo) => todo.title.includes(searchTerm))
+  //   );
+  // }, [searchTerm]);
 
   return (
     <div className="flex justify-between items-center">
