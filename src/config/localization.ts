@@ -14,6 +14,8 @@ const translations: TranslationsList = {
     noTodos: "No Todos Found",
     addTodo: "Add",
     addTodoPlaceholder: "Add New Todo",
+    clearCompletedTodos: "Clear Completed Todos",
+    clearAllTodos: "Clear All Todos",
   },
   ar: {
     headerText: "تطبيق المهام",
@@ -24,6 +26,8 @@ const translations: TranslationsList = {
     noTodos: "لا توجد مهام",
     addTodo: "إضافة",
     addTodoPlaceholder: "إضافة مهمة جديدة",
+    clearCompletedTodos: "مسح المهام المكتملة",
+    clearAllTodos: "مسح جميع المهام",
   },
 };
 

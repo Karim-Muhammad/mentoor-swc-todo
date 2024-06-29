@@ -1,5 +1,6 @@
 import { FaArrowCircleUp } from "react-icons/fa";
 import useTodosState from "../../hooks/useTodosState";
+import { trans } from "@mongez/localization";
 
 const ClearCompletedButton = () => {
   const { clearCompleted } = useTodosState();
@@ -12,7 +13,7 @@ const ClearCompletedButton = () => {
 
       <div className="relative p-4 my-4 bg-[#4A90E2e1] ring-1 ring-gray-900/5 rounded-lg leading-none flex items-top justify-between space-x-6">
         <div className="w-full flex justify-between items-center gap-1">
-          <span className="text-white-900">Clear Completed Todos</span>
+          <span className="text-white-900">{trans("clearCompletedTodos")}</span>
 
           <FaArrowCircleUp className="text-white-900" />
         </div>
