@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { Middleware, PayloadAction } from "@reduxjs/toolkit";
-import type { Todo, TodoActions } from "../../../types";
+import type { Todo } from "../../../types";
 
 const initialState: Todo[] = [
   {

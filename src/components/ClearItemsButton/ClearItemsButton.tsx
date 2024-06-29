@@ -1,4 +1,3 @@
-import React from "react";
 import useTodosState from "../../hooks/useTodosState";
 import { FaTrashAlt } from "react-icons/fa";
 
