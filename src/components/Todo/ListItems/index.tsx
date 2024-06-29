@@ -11,7 +11,7 @@ export default function TodoListItems() {
   return (
     <ul className="divide-y divide-gray-200 px-4">
       {todos &&
-        todos.map((todo: Todo) => <TodoItem key={todo.title} todo={todo} />)}
+        todos.map((todo: Todo) => <TodoItem key={todo.id} todo={todo} />)}
 
       {!todos.length && (
         <div className="relative max-w-7xl mx-auto">
