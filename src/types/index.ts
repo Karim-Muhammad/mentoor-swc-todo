@@ -32,7 +32,5 @@ export interface TodoActions {
   // ========================
   clearTodos: () => void;
 
-  filterTodos: (filter: string) => void;
-
   clearCompleted: () => void;
 }

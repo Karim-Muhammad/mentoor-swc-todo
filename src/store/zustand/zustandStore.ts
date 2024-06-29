@@ -8,6 +8,8 @@ export interface ZustandStore {
   deleteTodo: (id: number) => void;
   updateTodo: (id: number, todo: Todo) => void;
   setTodos: (todos: Todo[]) => void;
+  clearTodos: () => void;
+  clearCompleted: () => void;
 }
 
 const useZustandStore = create<ZustandStore>((set, get) => ({
@@ -95,6 +97,12 @@ const useZustandStore = create<ZustandStore>((set, get) => ({
       localStorage.setItem("zustand", JSON.stringify(todos));
       return { ...state, todos: todos };
     }),
+  clearTodos: () => set((state) => ({ ...state, todos: [] })),
+  clearCompleted: () =>
+    set((state) => ({
+      ...state,
+      todos: state.todos.filter((todo: Todo) => !todo.isCompleted),
+    })),
 }));
 
 export default useZustandStore;

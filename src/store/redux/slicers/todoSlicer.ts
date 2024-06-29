@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { Middleware, PayloadAction } from "@reduxjs/toolkit";
-import type { Todo } from "../../../types";
+import type { Todo, TodoActions } from "../../../types";
 
 const initialState: Todo[] = [
   {
@@ -24,6 +24,11 @@ const todoSlicer = createSlice({
   initialState: initialState,
 
   reducers: {
+    /**
+     * @description Add a single todo
+     * @param state {Todo[]}
+     * @param action {PayloadAction<Todo>}
+     */
     addTodo: (state, action: PayloadAction<Todo>) => {
       state.push({
         ...action.payload,
@@ -33,6 +38,11 @@ const todoSlicer = createSlice({
       });
     },
 
+    /**
+     * @description Change complete status of a single todo by id
+     * @param state {Todo[]}
+     * @param action {PayloadAction<number>} - id
+     */
     toggleTodo: (state, action: PayloadAction<number>) => {
       state.forEach((todo: Todo) => {
         if (todo.id === action.payload) {
@@ -41,47 +51,59 @@ const todoSlicer = createSlice({
       });
     },
 
+    /**
+     * @description Delete a single todo
+     * @param state {Todo[]}
+     * @param action {PayloadAction<number>}
+     */
     deleteTodo: (state, action: PayloadAction<number>) => {
       const index = state.findIndex((todo: Todo) => todo.id === action.payload);
       if (index !== -1) state.splice(index, 1); // This mutates the state directly
     },
 
+    /**
+     *
+     * @param state {Todo[]}
+     * @param action {PayloadAction<{ id: number; todo: Todo }>}
+     */
     updateTodo: (state, action: PayloadAction<{ id: number; todo: Todo }>) => {
-      const index = state.findIndex(
-        (todo: Todo) => todo.id === action.payload.id
-      );
-      if (index !== -1) {
-        state[index] = {
-          ...state[index],
+      let item = state.find((todo: Todo) => todo.id === action.payload.id);
+
+      if (item !== null) {
+        item = {
+          ...item,
           ...action.payload.todo,
           updated_at: new Date().toISOString(),
         };
       }
     },
 
-    setTodos: (state, action: PayloadAction<Todo[]>) => {
-      state.splice(0, state.length, ...action.payload);
+    /**
+     * @description Set all todos
+     * @param state {Todo[]}
+     * @param action {PayloadAction<Todo[]>}
+     * @returns {Todo[]} action.payload
+     */
+    setTodos: (_, action: PayloadAction<Todo[]>) => {
+      // state.splice(0, state.length, ...action.payload); works
+      return action.payload;
     },
 
-    clearTodos: (state) => {
-      state.splice(0, state.length);
+    /**
+     * @description Clear all todos
+     * @returns {Todo[]} Empty array
+     */
+    clearTodos: () => {
+      // state.splice(0, state.length);
+      return [];
     },
 
-    filterTodos: (state, action: PayloadAction<string>) => {
-      state.filter((todo: Todo) => {
-        if (action.payload === "completed") {
-          return todo.isCompleted;
-        } else if (action.payload === "active") {
-          return !todo.isCompleted;
-        } else {
-          return todo;
-        }
-      });
-    },
-
-    // Extra Reducer
+    /**
+     * @description Clear all completed todos
+     * @param state
+     */
     clearCompleted: (state) => {
-      state.filter((todo: Todo) => !todo.isCompleted);
+      return state.filter((todo: Todo) => !todo.isCompleted);
     },
   },
 });
@@ -89,13 +111,22 @@ const todoSlicer = createSlice({
 // Middlewares - LocalStorage
 export const SyncLocalStorage: Middleware = (store) => (next) => (action) => {
   const result = next(action);
-  console.log("[Sync...] ", store.getState().todos);
+
+  console.log("[Redux Sync to LoaclStorage...] ", store.getState().todos);
+
   localStorage.setItem("redux", JSON.stringify(store.getState().todos));
 
   return result;
 };
 
-export const { addTodo, toggleTodo, deleteTodo, updateTodo, setTodos } =
-  todoSlicer.actions;
+export const {
+  addTodo,
+  toggleTodo,
+  deleteTodo,
+  updateTodo,
+  setTodos,
+  clearTodos,
+  clearCompleted,
+} = todoSlicer.actions;
 
 export default todoSlicer.reducer;
