@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import useTodosState from "../../hooks/useTodosState";
+// import useTodosState from "../../hooks/useTodosState";
 
 const FilterInput = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const { setFilteredTodos } = useTodosState();
+  // const { setFilteredTodos } = useTodosState();
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -12,9 +12,9 @@ const FilterInput = () => {
   console.log("searchTerm", searchTerm);
 
   useEffect(() => {
-    setFilteredTodos((todos) =>
-      todos.filter((todo) => todo.title.includes(searchTerm))
-    );
+    // setFilteredTodos((todos) =>
+    //   todos.filter((todo) => todo.title.includes(searchTerm))
+    // );
   }, [searchTerm]);
 
   return (
