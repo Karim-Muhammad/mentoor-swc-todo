@@ -67,12 +67,12 @@ const todoSlicer = createSlice({
      * @param action {PayloadAction<{ id: number; todo: Todo }>}
      */
     updateTodo: (state, action: PayloadAction<{ id: number; todo: Todo }>) => {
-      let item = state.find((todo: Todo) => todo.id === action.payload.id);
-
-      if (item !== null) {
-        item = {
-          ...item,
-          ...action.payload.todo,
+      const { id, todo } = action.payload;
+      const index = state.findIndex((todo: Todo) => todo.id === id);
+      if (index !== -1) {
+        state[index] = {
+          ...state[index],
+          ...todo,
           updated_at: new Date().toISOString(),
         };
       }

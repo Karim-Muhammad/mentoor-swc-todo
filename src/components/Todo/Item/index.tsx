@@ -10,11 +10,12 @@ export type TodoItemProps = {
 };
 
 export default function TodoItem({ todo }: TodoItemProps) {
+  const { toggleTodo, updateTodo, deleteTodo } = useTodosState();
+
   const [isEdit, setIsEdit] = React.useState(false);
   const [title, setTitle] = React.useState(todo.title);
-  const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const { toggleTodo, updateTodo, deleteTodo } = useTodosState();
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const changeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -33,7 +34,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
 
   return (
     <>
-      <div className="relative max-w-7xl mx-auto">
+      <div key={todo.title} className="relative max-w-7xl mx-auto">
         <div className="absolute -inset-1 bg-gradient-to-r from-[#3fb7b3] to-[#16D6FA] rounded-lg blur opacity-85"></div>
 
         <div className="relative p-4 my-4 bg-[#5cdff6e1] ring-1 ring-gray-900/5 rounded-lg leading-none flex items-top justify-between space-x-6">

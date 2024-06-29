@@ -1,5 +1,6 @@
 import ClearCompletedButton from "../ClearCompletedButton";
 import ClearItemsButton from "../ClearItemsButton";
+// import FilterInput from "../FilterInput";
 import FormWrapper from "../Todo/FormWrapper";
 import TodoListItems from "../Todo/ListItems";
 
@@ -11,6 +12,7 @@ function TodoApp() {
           <FormWrapper />
           <ClearItemsButton />
           <ClearCompletedButton />
+          {/* <FilterInput /> */}
         </section>
         <section className="basis-8/12">
           {/* Filter Component here */}
